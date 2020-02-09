@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  description: |
+    Go REST API
+  version: "0.0.1"
+  title: Go REST API
+  contact:
+    name: Robbie Martinus
+    url: https://github.com/rmartinus
+servers:
+  - url: "/v1"
+
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error response.
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: Error code.
+            message:
+              type: string
+              description: Error message.
+            details:
+              type: string
+              description: Error message details.
+      example:
+        success: false
+        error:
+          code: 500
+          message: Failed to retrieve employee.
+          details: DB error.
+
+paths:
+  '/healthCheck':
+    get:
+      summary: Health Check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        '5XX':
+          description: Server error.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+
+  '/{id}':
+    get:
+      summary: Sample get employee by id.
+      operationId: getEmployee
+      parameters:
+        - name: id
+          in: path
+          description: ID
+          required: true
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 10
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: string
+        '4XX':
+          description: Bad request.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '5XX':
+          description: Server error.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}

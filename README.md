@@ -1,5 +1,5 @@
 # go-rest
-
+![Go](https://github.com/rmartinus/go-rest/workflows/Go/badge.svg)
 Simple REST service written in Go using Open API v3.
 
 # Prerequisites

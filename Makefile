@@ -17,10 +17,15 @@ endif
 
 ## run: Run.
 run:
-	go run cmd/service/main.go
+	docker run -p 8080:8080 go-rest /app/service
 
 ## update: Update service.
 update:
 	echo "Updating go-rest"
 	git pull --rebase --autostash
 	go mod vendor
+
+## build: Build docker image.
+build:
+	go mod vendor
+	docker build -t go-rest .

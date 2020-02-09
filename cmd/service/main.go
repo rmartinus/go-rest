@@ -12,7 +12,7 @@ import (
 func main() {
 	log := logger.CreateLogger("go-rest")
 
-	router, err := api.NewRouter(api.Handlers(), "./api/v1.yaml")
+	router, err := api.NewRouter(api.Handlers(), "./v1.yaml")
 	if err != nil {
 		log.Panicf("Router creation error: %s", err.Error())
 	}
